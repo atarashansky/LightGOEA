@@ -40,4 +40,7 @@ All you need is a target list of genes and a dictionary of GO terms with associa
 Make sure this dictionary contains all genes with available GO terms in your dataset.
 
 To run GOEA, it is now simply:
-`enriched_goterms = GOEA(target_genes,GENE_SETS)`
+```python
+from light_goea import GOEA
+enriched_goterms = GOEA(target_genes,GENE_SETS)
+```
