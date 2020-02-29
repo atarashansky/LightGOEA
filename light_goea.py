@@ -60,7 +60,7 @@ def GOEA(target_genes,GENE_SETS,goterms=None,fdr_thresh=0.25,p_thresh=1e-3):
         counter+=1
         
         # identify genes associated with this go term
-        gene_set = GENE_SETS[goterm]
+        gene_set = np.array(GENE_SETS[goterm])
         
         # B -- number of genes associated with this go term
         B = gene_set.size
