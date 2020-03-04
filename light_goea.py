@@ -37,6 +37,7 @@ def GOEA(target_genes,GENE_SETS,goterms=None,fdr_thresh=0.25,p_thresh=1e-3,df_ke
     all_genes = np.array(all_genes)
     
     if isinstance(GENE_SETS,pd.DataFrame):
+        print('Converting DataFrame into dictionary')
         genes = GENE_SETS.index
         agt = GENE_SETS[df_key].values
         goterms = np.unique(agt)
