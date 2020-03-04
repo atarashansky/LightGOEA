@@ -7,7 +7,7 @@ def log_factorial(n):
 def log_binomial(n,k):
     return log_factorial(n) - (log_factorial(k) + log_factorial(n-k))
 
-def GOEA(target_genes,GENE_SETS,goterms=None,fdr_thresh=0.25,p_thresh=1e-3): 
+def GOEA(target_genes,GENE_SETS,goterms=None,fdr_thresh=0.25,p_thresh=1e-3,df_key='GO'): 
     """Performs GO term Enrichment Analysis using the hypergeometric distribution.
     
     Parameters
@@ -35,6 +35,15 @@ def GOEA(target_genes,GENE_SETS,goterms=None,fdr_thresh=0.25,p_thresh=1e-3):
     # identify all genes found in `GENE_SETS`
     all_genes = np.unique(np.concatenate(list(GENE_SETS.values())))
     all_genes = np.array(all_genes)
+    
+    if isinstance(GENE_SETS,pd.DataFrame):
+        genes = GENE_SETS.index
+        agt = GENE_SETS[df_key].values
+        goterms = np.unique(agt)
+        gs={}
+        for go in goterms:
+            gs[go] = np.unique(np.array(list(GENE_SETS.index[agt==go])))
+        GENE_SETS = gs
     
     # if goterms is None, use all the goterms found in `GENE_SETS`
     if goterms is None:
