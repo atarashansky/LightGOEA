@@ -52,7 +52,7 @@ def GOEA(target_genes,GENE_SETS,df_key='GO',goterms=None,fdr_thresh=0.25,p_thres
     if isinstance(GENE_SETS,pd.DataFrame):
         print('Converting DataFrame into dictionary')
         genes = np.array(list(GENE_SETS.index))
-        agt = np.array(list(GENE_SETS['GO'].values))
+        agt = np.array(list(GENE_SETS[df_key].values))
         idx = np.argsort(agt)
         genes = genes[idx]
         agt = agt[idx]
