@@ -7,18 +7,31 @@ def log_factorial(n):
 def log_binomial(n,k):
     return log_factorial(n) - (log_factorial(k) + log_factorial(n-k))
 
-def GOEA(target_genes,GENE_SETS,goterms=None,fdr_thresh=0.25,p_thresh=1e-3,df_key='GO'): 
+def GOEA(target_genes,GENE_SETS,df_key='GO',goterms=None,fdr_thresh=0.25,p_thresh=1e-3): 
     """Performs GO term Enrichment Analysis using the hypergeometric distribution.
     
     Parameters
     ----------
     target_genes - array-like
         List of target genes from which to find enriched GO terms.
-    GENE_SETS - dictionary
+    GENE_SETS - dictionary or pandas.DataFrame
         Dictionary where the keys are GO terms and the values are lists of genes associated with each GO term.
         Ex: {'GO:0000001': ['GENE_A','GENE_B'],
              'GO:0000002': ['GENE_A','GENE_C','GENE_D']}
         Make sure to include all available genes that have GO terms in your dataset.
+        
+        ---OR---
+        
+        Pandas DataFrame with genes as the index and GO terms values.
+        Ex: 'GENE_A','GO:0000001',
+            'GENE_A','GO:0000002',
+            'GENE_B','GO:0000001',
+            'GENE_B','GO:0000004',
+            ...
+        If `GENE_SETS` is a pandas DataFrame, the `df_key` parameter should be the name of the column in which
+        the GO terms are stored.       
+    df_key - str, optional, default 'GO'
+        The name of the column in which GO terms are stored. Only used if `GENE_SETS` is a DataFrame.
     goterms - array-list, optional, default None
         If provided, only these GO terms will be tested.
     fdr_thresh - float, optional, default 0.25
