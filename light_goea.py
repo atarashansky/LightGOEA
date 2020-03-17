@@ -46,8 +46,6 @@ def GOEA(target_genes,GENE_SETS,df_key='GO',goterms=None,fdr_thresh=0.25,p_thres
     """    
     
     # identify all genes found in `GENE_SETS`
-    all_genes = np.unique(np.concatenate(list(GENE_SETS.values())))
-    all_genes = np.array(all_genes)
     
     if isinstance(GENE_SETS,pd.DataFrame):
         print('Converting DataFrame into dictionary')
@@ -62,6 +60,8 @@ def GOEA(target_genes,GENE_SETS,df_key='GO',goterms=None,fdr_thresh=0.25,p_thres
         bounds_right=bounds[1:]
         genes_lists = [genes[bounds_left[i]:bounds_right[i]] for i in range(bounds_left.size)]
         GENE_SETS = dict(zip(np.unique(agt),genes_lists))
+    all_genes = np.unique(np.concatenate(list(GENE_SETS.values())))
+    all_genes = np.array(all_genes)
     
     # if goterms is None, use all the goterms found in `GENE_SETS`
     if goterms is None:
